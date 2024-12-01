@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import * as Yup from "yup";
 import styles from './component.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from '../redux/contactsOps.js';
+import { addContact } from '../redux/contacts/operations.js';
 
 // Validation schema
 const FeedbackSchema = Yup.object().shape({
