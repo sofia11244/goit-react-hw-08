@@ -15,6 +15,9 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     resetAuthState: () => initialState,
+    setRefreshing: (state, action) => {
+      state.isRefreshing = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder

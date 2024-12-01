@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { setRefreshing } from '../redux/auth/slice';
+import { setContacts } from '../redux/contacts/actions'; // Redux action'ı ekleyelim
 import Layout from './Layout.jsx';
 import { Routes, Route } from 'react-router-dom';
 import { selectIsRefreshing } from '../redux/auth/selectors';
@@ -16,64 +17,38 @@ const App = () => {
   const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    const refreshUserState = async () => {
+    const fetchContacts = async () => {
       try {
         dispatch(setRefreshing(true));
-  
-        // Kullanıcı verilerini yenilemek için API çağrısı
-        const response = await fetch('https://connections-api.goit.global/users/current', {
+
+        const response = await fetch('https://connections-api.goit.global/contacts', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`, // Token'ı yerel depodan al
           },
         });
-  
+
         if (!response.ok) {
-          throw new Error('Failed to fetch user data');
+          throw new Error('Failed to fetch contacts');
         }
-  
+
         const data = await response.json();
-  
-        // Kullanıcı bilgilerini redux store'a ekleyebilirsin
-        console.log('User data:', data);
-        // Örneğin: dispatch(yourSetUserAction(data));
+
+        // Veriyi Redux'a gönder
+        dispatch(setContacts(data)); // Redux'a veriyi gönderiyoruz
+        console.log('Contacts data:', data);
       } catch (error) {
-        console.error('Error refreshing user:', error.message);
+        console.error('Error fetching contacts:', error.message);
       } finally {
         dispatch(setRefreshing(false));
       }
     };
-  
-    refreshUserState();
+
+    fetchContacts();
   }, [dispatch]);
-  
 
   return isRefreshing ? (
     <p>Loading...</p>
   ) : (
-    // function App() {
-    //   const dispatch = useDispatch();
-    //   const contacts = useSelector((state) => state.contacts.items);
-    //   const searchValue = useSelector((state) => state.filters.nameFilter);
-    
-    //   const handleAddContact = (newContact) => {
-    //     dispatch(addContact(newContact));
-    //   };
-    
-    //   const handleSearchChange = (e) => {
-    //     dispatch(changeFilter(e.target.value));
-    //   };
-    
-    //   const filteredContacts = contacts.filter((contact) =>
-    //     contact.name.toLowerCase().includes(searchValue.toLowerCase())
-    //   );
-
-
-    // <div>
-    //   <h1>Phonebook</h1>
-    //   <ContactForm onAddContact={handleAddContact} />
-    //   <SearchBox inputValue={searchValue} handleChange={handleSearchChange} />
-    //   <ContactList contacts={filteredContacts} />
-    // </div>
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
