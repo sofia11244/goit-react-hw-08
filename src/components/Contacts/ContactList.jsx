@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { useEffect } from "react";
 import ContactListItem from './ContactListItem.jsx';
-import styles from './component.module.css';
+import styles from './component-contacts.module.css';
 import { useSelector, useDispatch } from "react-redux";
-import { fetchContacts } from "../redux/contacts/operations.js";
-import { deleteContact } from "../redux/contacts/operations.js"; // contactsSlice'tan eylemi al
+import { fetchContacts } from "../../redux/contacts/operations.js";
+import { deleteContact } from "../../redux/contacts/operations.js"; // contactsSlice'tan eylemi al
 
 const ContactList = () => {
     const dispatch = useDispatch();

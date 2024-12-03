@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchContacts } from '../redux/contacts/operations.js';
-import ContactForm from '../components/ContactForm.jsx';
-import ContactList from '../components/ContactList.jsx';
+import ContactForm from '../components/Contacts/ContactForm.jsx';
+import ContactList from '../components/Contacts/ContactList.jsx';
 import Filter from '../components/Filter.jsx';
 
 const Contacts = () => {
