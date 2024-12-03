@@ -6,7 +6,11 @@ import PropTypes from 'prop-types';
 const PublicRoute = ({ children, restricted }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  return isLoggedIn && restricted ? <Navigate to="/" /> : children;
+  if (isLoggedIn && restricted) {
+    return <Navigate to="/" />;
+  }
+
+  return children;
 };
 
 export default PublicRoute;

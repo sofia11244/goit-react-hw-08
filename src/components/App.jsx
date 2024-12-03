@@ -24,7 +24,7 @@ const App = () => {
       try {
         dispatch(setRefreshing(true));
         axios.defaults.baseURL = 'https://connections-api.goit.global/';
-        const response = await axios.get('{{url}}/contacts', {}, {
+        const response = await axios.get('/contacts', {}, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`, // Token'ı yerel depodan al
           },
@@ -54,24 +54,20 @@ const App = () => {
   ) : (
     <Layout>
       <Routes>
-        <Route path="/" element={<Home />} />
-
-        <Routes>
-      <Route
-        path="/login"
-        element={<PublicRoute element={<Login />} restricted={false} redirectTo="/" />}
-      />
-      <Route
-        path="/register"
-        element={<PublicRoute element={<Registration />} restricted={false} redirectTo="/" />}
-      />
-    </Routes>
-
-        <Route
-          path="/contacts"
-          element={<PrivateRoute redirectTo="/login" component={<Contacts />} />}
-        />
-      </Routes>
+  <Route path="/" element={<Home />} />
+  <Route
+    path="/login"
+    element={<PublicRoute element={<Login />} restricted={false}/>}
+  />
+  <Route
+    path="/register"
+    element={<PublicRoute restricted={false}><Registration /></PublicRoute>}
+  />
+  <Route
+    path="/contacts"
+    element={<PrivateRoute redirectTo="/login" component={<Contacts />} />}
+  />
+</Routes>
     </Layout>
   );
 };

@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn, selectIsRefreshing } from '../redux/auth/selectors';
+import PropTypes from 'prop-types';
 
 const PrivateRoute = ({ component: Component, redirectTo }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -14,3 +15,8 @@ const PrivateRoute = ({ component: Component, redirectTo }) => {
 };
 
 export default PrivateRoute;
+
+PrivateRoute.propTypes = {
+  component: PropTypes.element.isRequired,
+  redirectTo: PropTypes.string.isRequired,
+};

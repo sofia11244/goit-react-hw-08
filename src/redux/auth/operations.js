@@ -3,7 +3,7 @@ import axios from 'axios';
 import { persistToken, getTokenFromStorage } from '../redux-persist'; //CREATE FOLDER
 
 
-axios.defaults.baseURL = 'https://connections-api.goit.global/'; // API ana URL'nizi ekleyin.
+// axios.defaults.baseURL = 'https://connections-api.goit.global/'; // API ana URL'nizi ekleyin.
 
 
 
@@ -11,10 +11,12 @@ axios.defaults.baseURL = 'https://connections-api.goit.global/'; // API ana URL'
 export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
+    console.log(credentials);
     try {
-      const response = await axios.post('/users/register', credentials);
-      persistToken(response.data.token); // Token'ı yerel depoda sakla
-      return response.data;
+      const response = await axios.post('/users/signup', credentials);
+      const token = response.data.token;
+      persistToken(token); // Token'ı yerel depoda sakla
+      return { token };
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }

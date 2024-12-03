@@ -14,6 +14,7 @@ const Registration = () => {
     dispatch(register(newUser));
   };
 
+
   return (
     <form onSubmit={handleSubmit}>
       <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
