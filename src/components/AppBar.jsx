@@ -15,10 +15,10 @@ const AppBar = () => {
       {isLoggedIn ? <UserMenu /> : 
       
       <nav>
-    <Link to="/register">Register</Link>
-    <br></br>
-    <Link to="/login">Login</Link>
-  </nav>}
+        <Link to="/register">Register</Link>
+        <br></br>
+        <Link to="/login">Login</Link>
+      </nav>}
     </header>
   );
 };

@@ -5,7 +5,6 @@ import { setContacts } from '../redux/contacts/actions'; // Redux action'ı ekle
 import Layout from './Layout.jsx';
 import { Routes, Route } from 'react-router-dom';
 import { selectIsRefreshing } from '../redux/auth/selectors';
-import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute.jsx';
 import Home from '../pages/Home.jsx';
 import Login from '../pages/Login.jsx';
@@ -19,7 +18,7 @@ const App = () => {
   // const isLoggedIn = useSelector(selectIsLoggedIn);
   const isRefreshing = useSelector(selectIsRefreshing);
 
-  useEffect(() => {
+ useEffect(() => {
     const fetchContacts = async () => {
       try {
         dispatch(setRefreshing(true));
@@ -48,26 +47,26 @@ const App = () => {
 
     fetchContacts();
   }, [dispatch]);
-
+ 
   return isRefreshing ? (
     <p>Loading...</p>
   ) : (
     <Layout>
       <Routes>
-  <Route path="/" element={<Home />} />
-  <Route
-    path="/login"
-    element={<PublicRoute element={<Login />} restricted={false}/>}
-  />
-  <Route
-    path="/register"
-    element={<PublicRoute restricted={false}><Registration /></PublicRoute>}
-  />
-  <Route
-    path="/contacts"
-    element={<PrivateRoute redirectTo="/login" component={<Contacts />} />}
-  />
-</Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/login"
+          element={<PublicRoute element={<Login />} restricted={false}/>}
+        />
+        <Route
+          path="/register"
+          element={<PublicRoute element={<Registration />} restricted={false}/>}
+        />
+        <Route
+          path="/contacts"
+          element={<PublicRoute redirectTo="/login" component={<Contacts />} />}
+        />
+    </Routes>
     </Layout>
   );
 };
