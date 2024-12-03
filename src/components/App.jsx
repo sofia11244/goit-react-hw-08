@@ -6,22 +6,25 @@ import Layout from './Layout.jsx';
 import { Routes, Route } from 'react-router-dom';
 import { selectIsRefreshing } from '../redux/auth/selectors';
 import PrivateRoute from './PrivateRoute';
-import RestrictedRoute from './RestrictedRoute';
+import PublicRoute from './PublicRoute.jsx';
 import Home from '../pages/Home.jsx';
 import Login from '../pages/Login.jsx';
 import Registration from '../pages/Registration.jsx';
 import Contacts from '../pages/Contacts.jsx';
+// import { selectIsLoggedIn, fetchUser } from '../redux/auth/selectors';
+import axios from 'axios';
 
 const App = () => {
   const dispatch = useDispatch();
+  // const isLoggedIn = useSelector(selectIsLoggedIn);
   const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
     const fetchContacts = async () => {
       try {
         dispatch(setRefreshing(true));
-
-        const response = await fetch('https://connections-api.goit.global/contacts', {
+        axios.defaults.baseURL = 'https://connections-api.goit.global/';
+        const response = await axios.get('{{url}}/contacts', {}, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`, // Token'ı yerel depodan al
           },
@@ -52,14 +55,18 @@ const App = () => {
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
-          path="/login"
-          element={<RestrictedRoute redirectTo="/contacts" component={<Login />} />}
-        />
-        <Route
-          path="/register"
-          element={<RestrictedRoute redirectTo="/contacts" component={<Registration />} />}
-        />
+
+        <Routes>
+      <Route
+        path="/login"
+        element={<PublicRoute element={<Login />} restricted={false} redirectTo="/" />}
+      />
+      <Route
+        path="/register"
+        element={<PublicRoute element={<Registration />} restricted={false} redirectTo="/" />}
+      />
+    </Routes>
+
         <Route
           path="/contacts"
           element={<PrivateRoute redirectTo="/login" component={<Contacts />} />}

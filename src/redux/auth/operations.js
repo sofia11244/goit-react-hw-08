@@ -12,7 +12,7 @@ export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const response = await axios.post('/users/signup', credentials);
+      const response = await axios.post('/users/register', credentials);
       persistToken(response.data.token); // Token'ı yerel depoda sakla
       return response.data;
     } catch (e) {

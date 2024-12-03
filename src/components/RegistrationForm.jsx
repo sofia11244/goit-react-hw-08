@@ -1,29 +1,27 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { register } from '../redux/auth/operations'; // register thunk'ını import ediyoruz
+import { register } from '../redux/auth/operations';
 
-const RegistrationForm = () => {
+const Registration = () => {
   const dispatch = useDispatch();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newUser = {
-      name: e.target.username.value, // Kullanıcı adını input'tan alıyoruz
-      email: e.target.email.value,  // E-posta adresini input'tan alıyoruz
-      password: e.target.password.value, // Şifreyi input'tan alıyoruz
-    };
-
-    // register thunk'ını dispatch ediyoruz
+    const newUser = { name, email, password };
     dispatch(register(newUser));
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" name="username" placeholder="Username" required />
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="password" name="password" placeholder="Password" required />
+      <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+      <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <button type="submit">Register</button>
     </form>
   );
 };
 
-export default RegistrationForm;
+export default Registration;
