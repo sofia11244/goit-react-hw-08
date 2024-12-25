@@ -4,6 +4,8 @@ import filtersReducer from "./filters/slice.js";
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
 import authReducer from "./auth/slice.js";
+import registerReducer from "./register/slice.js";
+
 
 const authPersistConfig = {
   key: 'auth',
@@ -16,6 +18,7 @@ export const store = configureStore({
     auth: persistReducer(authPersistConfig, authReducer),
     contacts: contactsReducer,
     filters: filtersReducer,
+    register: registerReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

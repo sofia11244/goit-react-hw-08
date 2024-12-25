@@ -11,12 +11,13 @@ const PrivateRoute = ({ component: Component, redirectTo }) => {
     return <p>Loading...</p>;
   }
 
-  return isLoggedIn ? Component : <Navigate to={redirectTo} />;
+  return isLoggedIn ? <Component /> : <Navigate to={redirectTo} />;
+
 };
 
 export default PrivateRoute;
 
 PrivateRoute.propTypes = {
-  component: PropTypes.element.isRequired,
+  component: PropTypes.element,
   redirectTo: PropTypes.string.isRequired,
 };

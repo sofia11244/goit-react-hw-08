@@ -9,6 +9,9 @@ const Navigation = () => {
     <nav>
       <NavLink to="/">Home</NavLink>
       {isLoggedIn && <NavLink to="/contacts">Contacts</NavLink>}
+
+      <NavLink to="/login" >Login</NavLink>
+      <NavLink to="/register">Register</NavLink>
     </nav>
   );
 };

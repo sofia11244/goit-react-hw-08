@@ -12,6 +12,7 @@ import Registration from '../pages/Registration.jsx';
 import Contacts from '../pages/Contacts.jsx';
 // import { selectIsLoggedIn, fetchUser } from '../redux/auth/selectors';
 import axios from 'axios';
+import PrivateRoute from './PrivateRoute.jsx';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -56,15 +57,22 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route
           path="/login"
-          element={<PublicRoute element={<Login />} restricted={false}/>}
+          element={
+          <PublicRoute restricted={true}>
+          <Login />
+          </PublicRoute>}
         />
         <Route
           path="/register"
-          element={<PublicRoute element={<Registration />} restricted={false}/>}
+          element={
+            <PublicRoute>
+              <Registration />
+            </PublicRoute>
+          }
         />
         <Route
           path="/contacts"
-          element={<PublicRoute redirectTo="/login" component={<Contacts />} />}
+          element={<PrivateRoute redirectTo="/login" component={<Contacts />} />}
         />
     </Routes>
     </Layout>
